@@ -160,7 +160,7 @@ class KNN():
             [getNumberOfFileName(name) for name in imageDataTest.keys()],
             imageData[key],5)
             mat[getNumberOfFileName(key)][n]+=1
-            return mat
+        return mat
         
 class Zoning():
     
