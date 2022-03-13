@@ -31,6 +31,7 @@ class OCR():
                 self.finalConfMatrix[nb][foundNb] += 1
         print(self.finalConfMatrix)
         print(self.stats)
+        print(f'Succès : {np.trace(self.finalConfMatrix)} % ')
             
     def guessFromKnn(self, file):
         return self.knn.guessFromFilename(file)
