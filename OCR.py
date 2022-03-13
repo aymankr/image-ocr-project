@@ -4,6 +4,7 @@ from skimage.transform import resize
 from scipy import ndimage as ndi
 import matplotlib.pyplot as plt
 import numpy as np
+from art import *
 
 class ProfilH:
     SIZE = 60
@@ -15,7 +16,7 @@ class ProfilH:
         self.initConfusionMatrix()
         self.initScoreMatrix()
         self.getAllVectors()
-        self.getProfileVHConfusionMatrix()
+        #self.getProfileVHConfusionMatrix()
         
     def getScoreTab(self, number, nth):
         return self.scoreMatrix[f'{number}-{nth}']
@@ -38,6 +39,7 @@ class ProfilH:
         self.ALL_VECTORS = vectors
         
     def getProfileVHConfusionMatrix(self):
+        self.initConfusionMatrix()
         for i in range(0,10):
             for j in range(1,11):
                 self.FIRST = i
@@ -139,7 +141,7 @@ class KNN():
     def getKnnConfusionMatrix(self):
         fileNames = []
         imageData = {}
-        mat = np.zeros(shape=(10, 10))
+        mat = np.zeros(shape=(10, 10), dtype=np.uint8)
 
         for i in range(0,10):
             for x in range(1,11):
@@ -216,7 +218,7 @@ class Zoning():
         return comparedVectors[indexOfMinDistance][0]
     
     def getZoningConfusionMatrix(self):
-        mat = np.zeros(shape=(10, 10))
+        mat = np.zeros(shape=(10, 10), dtype=np.uint8)
         for i in range(10):
             for j in range(11):
                 if j == 0:
@@ -246,20 +248,31 @@ def euclideanDistance(v1, v2):
         distance += math.pow((v1[i] - v2[i]), 2)
     return math.sqrt(distance)
 
-print("--- Profil HORIZONTAL ---", end="\n\n")
-ph = ProfilH()
-ph_cm = ph.getProfileVHConfusionMatrix()
-print(ph_cm)
-print("\n\n--- FIN PROFIL HORIZONTAL ---", end="\n\n\n")
 
-print("--- ZONING ---", end="\n\n")
-zn = Zoning()
-zn_cm = zn.getZoningConfusionMatrix()
-print(zn_cm)
-print("\n\n--- FIN ZONING ---", end="\n\n\n")
 
-print("--- KNN ---", end="\n\n")
-knn = KNN()
-knn_cm = knn.getKnnConfusionMatrix()
-print(knn_cm)
-print("\n\n--- FIN KNN ---", end="\n\n\n")
+def main():
+    print("\n" + "="*50 + "\n")
+    tprint("OCR")
+    print("\n CHARASSON Gabin, KACHMAR Ayman, MARTIN Hugo\n")
+    print("="*50 + "\n")
+    
+    print("--- Profil HORIZONTAL ---", end="\n\n")
+    ph = ProfilH()
+    ph_cm = ph.getProfileVHConfusionMatrix()
+    print(ph_cm)
+    print("\n\n--- FIN PROFIL HORIZONTAL ---", end="\n\n\n")
+
+    print("--- ZONING ---", end="\n\n")
+    zn = Zoning()
+    zn_cm = zn.getZoningConfusionMatrix()
+    print(zn_cm)
+    print("\n\n--- FIN ZONING ---", end="\n\n\n")
+
+    print("--- KNN ---", end="\n\n")
+    knn = KNN()
+    knn_cm = knn.getKnnConfusionMatrix()
+    print(knn_cm)
+    print("\n\n--- FIN KNN ---", end="\n\n\n")
+
+if __name__ == "__main__":
+    main()
